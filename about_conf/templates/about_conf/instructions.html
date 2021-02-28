@@ -1,0 +1,61 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+{% load project_tags %}
+{% block title %}
+    Требования к оформлению
+{% endblock title %}
+{% block content %}
+	<h1 class="ui orange centered header">
+		Требования к оформлению материалов
+	</h1>
+
+		<!-- <p> -->
+<!-- 			<style>
+				.button {float: right}
+			</style> -->
+			<div class="ui right aligned basic segment">
+				<a href="{{ content_file.url }}" download button class="ui teal button">
+					<i class="ui download icon"></i>
+					Требования
+				</a>
+
+				<a href="{{ pattern_file.url }}" download button class="ui green button">
+					<i class="ui download icon"></i>
+					Шаблон
+				</a>
+			</div>
+		<!-- </p> -->
+
+	<div class="ui divided items">
+
+
+        
+        <div class="description">
+            <p>
+                {{ instructions | markdown}}
+            </p>
+        </div>
+
+		<!-- <p> -->
+			<a href="{{ content_file.url }}" download button class="ui teal button">
+				<i class="ui download icon"></i>
+				Требования
+			</a>
+
+			<a href="{{ pattern_file.url }}" download button class="ui green button">
+				<i class="ui download icon"></i>
+				Шаблон
+			</a>
+
+		<!-- </p> -->
+
+	</div>
+    
+{% endblock content %}
+
+
+

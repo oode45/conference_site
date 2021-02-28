@@ -1,0 +1,139 @@
+{% extends "base_blank.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+	<style type="text/css">
+	div.uppercase{
+		text-transform: uppercase;
+	}
+    </style>
+{% endblock extra_styles %}
+
+{% block title %}
+    Статистика
+{% endblock title %}
+
+{% block content %}
+	<h1 class="ui centered header">
+		Статистика
+	</h1>
+
+<div class = 'ui horizontal divider'><h3>Редакторы:</h3></div>
+	
+		{% for reviewer, participants  in reviewers_and_participants %}
+		<div class="ui accordion">
+			<div class="title">
+		    	<i class="dropdown icon"></i>
+		    {{ reviewer }}
+		  	</div>
+
+		    <div class="content">	
+		    	<h3>Принятые</h3>
+		    	 {% for participant in participants %}		    	 	
+					{% if participant.status_type == 'accepted' %}
+					<b>{{participant}}</b> {{participant.paper_name}} <br>
+					{% endif %}
+		    	 {% endfor %}
+
+		    	 <h3>Отклоненные</h3>
+		    	 {% for participant in participants %}		    	 	
+					{% if participant.status_type == 'rejected' %}
+					<b>{{participant}}</b> {{participant.paper_name}} <br>
+					{% endif %}
+		    	 {% endfor %}
+
+		    	 <h3>На рассмотрении</h3>
+		    	 {% for participant in participants %}		    	 	
+					{% if participant.status_type == 'approval' %}
+					<b>{{participant}}</b> {{participant.paper_name}} <br>
+					{% endif %}
+		    	 {% endfor %}
+		    </div>			
+		</div>
+
+		{% endfor %}
+		<br>
+<div class = 'ui horizontal divider'><h3>Свободные статьи:</h3></div>	
+		<!-- Геофизический мониторинг и геоинформационные системы	 -->
+		{% for participant in reviewer_none %} 
+		 <b>{{participant.section}}</b> {{participant}} {{participant.paper_name}} <br><br>
+<!-- 			{% if participant.section == sections.2 %}
+				<b>{{participant}}</b> {{participant.paper_name}} <br>
+			{% endif %} -->
+
+		{% endfor %}
+
+
+		<br>
+<!--  -->
+<div class = 'ui horizontal divider'><h3>Доклады:</h3></div>
+
+		<div class="ui accordion">
+			 {% for section, participants, count in sections_and_participants %}
+				<div class="title">
+			    	<i class="dropdown icon"></i>
+					{{section}}
+			    </div>
+			    <div class="content">
+					{% for participant in participants %}
+						<b>{{participant}}</b> {{participant.paper_name}} <br>
+					{% endfor %}
+					<br>
+					<b>Количество докладов в секции:</b> {{count}} 
+			    </div>
+			 {% endfor %}
+
+			 <div class="title">
+			    <i class="dropdown icon"></i>
+					Постерные доклады
+			 </div>
+		    <div class="content">
+				{% for participant in participation_type_poster %}
+					<b>{{participant}}</b> {{participant.paper_name}}
+				{% endfor %}
+			
+				<b>Количество докладов в секции:</b> {{poster_num}}
+		    </div>
+		</div>
+
+<div class='ui horizontal divider'><h3>Список докладов с авторами:</h3></div>
+		<div class="ui accordion">
+			{% for section, participants, count in sections_and_participants_for_print %}
+			<div class="title">
+				<i class="dropdown icon"></i>
+				{{section}}
+			</div>
+			<div class="content">
+				{% for participant in participants %}
+				<div class="uppercase"><i>{{participant.author_list}}</i> {{participant.paper_name}}</div>
+				{% endfor %}
+				<br>
+				<b>Количество докладов в секции:</b> {{count}}
+			</div>
+			{% endfor %}		
+		</div>
+		
+
+	
+<div class = 'ui horizontal divider'><h3>Email'ы:</h3></div>
+		<div class="ui styled accordion">
+			<div class="title">
+		    	<i class="dropdown icon"></i>
+		    Список email'ов
+		  	</div>
+		  	<div class="content">
+		  		{% for email in emails %}
+					{{email}} <br>
+				{% endfor %}
+			</div>
+		 </div>
+
+	<br>
+	
+
+<script type="text/javascript">
+	$('.ui.accordion').accordion();
+</script>
+
+{% endblock content %}
+
+

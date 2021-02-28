@@ -1,0 +1,30 @@
+{% extends "base_account.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+<style type="text/css">
+</style>
+{% endblock extra_styles %}
+
+{% block title %}
+Принять доклад
+{% endblock title %}
+
+{% block content %}
+    <!-- <h1 class="ui centered header">Принять</h1> -->
+    <form class="ui error form" action="{% url 'accept' id %}" method="post" enctype="multipart/form-data">
+    <!-- <form method="post" action="{% url 'accept' id %}"> -->
+        {% csrf_token %}
+        {{form.comment.label}}
+        {{form.comment}}
+        <br>
+        <br>
+        {{form.reviewer_corrected_manuscript.label}}
+        {{form.reviewer_corrected_manuscript}}
+        <br>
+        {{form.reviewer_corrected_manuscript_pdf.label}}
+        {{form.reviewer_corrected_manuscript_pdf}}
+        <br>
+        <br>
+        <input class="ui blue button" type="submit" value="Загрузить и отправить">              
+    </form>
+{% endblock content %}

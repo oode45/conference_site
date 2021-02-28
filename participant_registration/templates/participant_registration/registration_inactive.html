@@ -1,0 +1,18 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load project_tags %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+{% block title %}
+    Регистрация закрыта
+{% endblock title %}
+
+{% block content %}
+	<h3 class="ui orange centered header">Регистрация</h3>
+	<div class="ui raised center aligned segment">
+		{{ status.registration_inactive_text | markdown }}
+	</div>
+{% endblock content %}

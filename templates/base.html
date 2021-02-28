@@ -1,0 +1,204 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="description" content="Конференция молодых ученых 'Современные техника и технологии в научных исследованиях'" />
+
+    <meta property="og:url" content="mmk.gdirc.kg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Современные техника и технологии в научных исследованиях" />
+    <meta property="og:description" content="Конференция молодых ученых 'Современные техника и технологии в научных исследованиях'" />
+    <meta property="og:image" content="mmk.gdirc.kg/static/favicon/favicon3.png" />
+
+    <meta name="yandex-verification" content="36a9fd57b8d57d22" />
+
+    {% load staticfiles %}
+    <!-- <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.png' %}"/> -->
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon3.png' %}" />
+
+    {% block styles %}
+    <link rel="stylesheet" href="{% static 'semantic/semantic.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+    <!-- <link rel="stylesheet" href="{% static 'plugin/bxslider-4-master/src/css/jquery.bxslider.css' %}"> -->
+
+    <link rel="stylesheet" href="{% static 'plugin/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'plugin/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css' %}" />
+
+    {% endblock styles %} {% block extra_styles %} {% endblock extra_styles %} {% block scripts %}
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'semantic/semantic.min.js' %}"></script>
+    <!-- <script src="{% static 'plugin/bxslider-4-master/src/js/jquery.bxslider.js' %}"></script> -->
+    <script src="{% static 'plugin/OwlCarousel2-2.3.4/dist/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    {% endblock scripts %}
+    <title>{% block title %}{% endblock title %}</title>
+  </head>
+  <body>
+    <div class="ui container">
+      <!-- upper menu -->
+      <div class="ui grid">
+        <div class="ui row">
+          <div class="ui inverted grey stackable fluid menu">
+            <a href="{% url 'home' %}" class="item">
+              <img src="{% static 'img/logo.png' %}" />
+            </a>
+
+            <div class="right menu">
+              <a class="item" href="{% url 'archive' %}">
+                <i class="orange large book icon"></i>
+                Архив
+              </a>
+              <a class="item" href="{% url 'photogallery' %}">
+                <i class="orange large images icon"></i>
+                Фото Галерея
+              </a>
+              <a class="item" href="{% url 'contacts' %}">
+                <i class="orange large map outline icon"></i>
+                Контакты
+              </a>
+              <a class="item" href="{% url 'faq' %}">
+                <i class="orange large question icon"></i>
+                FAQ
+              </a>
+              {% if user.is_authenticated %}
+              <div class="ui simple dropdown item">
+                <i class="green large users icon"></i>
+                Сотрудникам
+                <i class="dropdown icon"></i>
+                <div class="ui vertical menu">
+                  <a class="ui dropdown item" href="{% url 'all_manuscripts' %}">
+                    <i class="green large user icon"></i>
+                    Личный кабинет
+                  </a>
+                  {% if user.is_staff %}
+                  <a class="item" href="{% url 'agenda' %}" target="_blank">
+                    <i class="green large list icon"></i>
+                    Программа конференции
+                  </a>
+                  <a class="item" href="{% url 'statistics' %}" target="_blank">
+                    <i class="green large chart bar icon"></i>
+                    Статистика
+                  </a>
+                  <a class="item" href="{% url 'admin:index' %}">
+                    <i class="green large code icon"></i>
+                    Админка
+                  </a>
+                  {% endif %}
+                  <a class="item" href="{% url 'my_logout' %}">
+                    <i class="green large sign-out icon"></i>
+                    Выйти
+                  </a>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="ui computer only row">
+          <!-- slider -->
+          <div class="owl-carousel owl-theme">
+            <div><img src="{% static 'img/slide/01.jpg' %}" title="" width="400" height="165" /></div>
+            <div><img src="{% static 'img/slide/02.jpg' %}" title="" width="400" height="165" /></div>
+            <div><img src="{% static 'img/slide/03.jpg' %}" title="" width="400" height="165" /></div>
+            <div><img src="{% static 'img/slide/04.jpg' %}" title="" width="400" height="165" /></div>
+            <div><img src="{% static 'img/slide/05.jpg' %}" title="" width="400" height="165" /></div>
+            <div><img src="{% static 'img/slide/6.jpg' %}" title="" width="400" height="165" /></div>
+            <div><img src="{% static 'img/slide/7.jpg' %}" title="" width="400" height="165" /></div>
+            <div><img src="{% static 'img/slide/8.jpg' %}" title="" width="400" height="165" /></div>
+            <div><img src="{% static 'img/slide/9.jpg' %}" title="" width="400" height="165" /></div>
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <!-- content -->
+      <div class="ui stackable grid">
+        <!-- left menu -->
+        <div class="five wide tablet three wide computer column">
+          <div class="ui vertical fluid menu">
+            <a class="item" href="{% url 'about' %}">
+              <i class="orange info icon"></i>
+              <b>О КОНФЕРЕНЦИИ</b>
+            </a>
+            <a class="item" href="{% url 'orgcom' %}">
+              <i class="orange users icon"></i>
+              <b>ОРГКОМИТЕТ</b>
+            </a>
+            <a class="item" href="{% url 'instructions' %}">
+              <i class="orange edit outline icon"></i>
+              <b>ТРЕБОВАНИЯ К ОФОРМЛЕНИЮ</b>
+            </a>
+            <a class="item" href="{% url 'registration_form' %}">
+              <i class="orange user icon"></i>
+              <b>РЕГИСТРАЦИЯ</b>
+            </a>
+            <a class="item" href="{% url 'status_claim' %}">
+              <i class="orange list alternate outline icon"></i>
+              <b>УЧАСТНИКИ</b>
+            </a>
+            <a class="item" href="{% url 'important_dates' %}">
+              <i class="orange calendar icon"></i>
+              <b>ВАЖНЫЕ ДАТЫ</b>
+            </a>
+
+            <a class="item" href="{% url 'program' %}">
+              <i class="orange file icon"></i>
+              <b>ПРОГРАММА КОНФЕРЕНЦИИ</b>
+            </a>
+          </div>
+          <div class="ui vertical segments">
+            <div class="ui basic segment">
+              <a href="http://www.gdirc.ru/" target="blank">
+                <img class="ui centered image" src="{% static 'img/nsran.png' %}" title="Научная станция Российской академии наук в г.Бишкеке" />
+              </a>
+            </div>
+            <div class="ui basic segment">
+              <a href="http://www.gdirc.ru/mnic-gp" target="blank">
+                <img class="ui centered image" src="{% static 'img/MnicGP.png' %}" title="Международный научно-исследовательский центр - Геодинамический полигон" />
+              </a>
+            </div>
+            <div class="ui basic segment">
+              <a href="https://minobrnauki.gov.ru/" target="blank">
+                <img class="ui centered image" src="{% static 'img/minobr.png' %}" title="Министерство науки и высшего образования Российской Федерации" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- right content -->
+        <div class="eleven wide tablet thirteen wide computer column" id="start">{% block content %} {% endblock content %}</div>
+        <!-- right content -->
+      </div>
+      <!-- grid -->
+    </div>
+    <!-- container -->
+    <script>
+      {% block owl-carousel %}
+          $('.owl-carousel').owlCarousel({
+                  items:3,
+                  loop:true,
+                  margin:3,
+                  autoplay:true,
+                  autoplayHoverPause:true,
+                  // nav:true,
+                  // navText:['',''],
+                  autoplayTimeout:4000,
+          });
+      {% endblock owl-carousel %}
+      $(document).ready(function() {
+          var windowWidth = window.innerWidth;
+          if (windowWidth < 780) {
+              $('html, body').animate({ scrollTop: $('#start').offset().top - 40}, 2000);
+          }
+      });
+    </script>
+    <script type="text/javascript">
+      {% block appjs %}
+      {% endblock appjs %}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+{% load project_tags %}
+{% block title %}
+    О конференции
+{% endblock title %}
+
+{% block content %}
+	<h1 class="ui orange centered header">
+		О конференции
+	</h1>
+
+	<div class="ui divided items">
+        <div class="description">
+            <p>
+                {{ about | markdown}}
+            </p>
+        </div>
+
+	</div>
+    
+{% endblock content %}
+
+
+

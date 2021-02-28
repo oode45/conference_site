@@ -1,0 +1,87 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+{% block title %}
+    Фотогаллерея
+{% endblock title %}
+
+{% block content %}
+    <h2 class="ui orange centered header">
+        Фотогаллерея
+    </h2>
+  		{% for year, photogallery in photogallery_list %}
+			<div class="ui accordion">
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Фото молодежной конференции {{ year }}
+				</div>
+				<div class="content">
+					<!-- <div class="ui four column grid"> -->
+					<div class="row">
+						{% for day in days%}
+							{% for photogallery_day in photogallery %}
+								{% if photogallery_day.day == day %}
+									<!-- <div class="ui segment"> -->
+											<div class="ui segments">
+												 <div class="ui segment">
+												    <p><b>День</b> {{ photogallery_day.day }}</p>
+												    {% if photogallery_day.zipfile.url != null %}
+												    <a href="{{ photogallery_day.zipfile.url }}" download button class="ui orange button">
+																Скачать архив															
+													</a>
+													{% endif %}
+												 </div>
+												 			
+
+												  <!-- <div class="ui segments"> -->
+												  <div class="ui segment">
+												      <div class="ui six column grid">
+												      {% for image in photogallery_day.image_list.all %}
+													  	<div class="column"><a href="#" class="item thumb" id={{image.image.url}} style="color:orange"><i class="icon image"></i>photo {{ forloop.counter }}</a></div>
+													  {% endfor %}
+													  </div>
+												  </div>
+											</div>	
+								{% endif %}
+							{% endfor%}
+						{% endfor%}
+					</div>
+					<!-- </div> -->
+				</div>		
+			</div> <!-- accordion -->
+
+		{% endfor %}
+
+
+<div class="ui basic modal" id="modal_shower">
+		<div class="image content">
+	    	<img class="ui big centered image"  id='modal_image'>
+	  	</div>
+	  	<div class="ui basic center aligned segment">
+		  <div class="actions">
+		    <div class="ui green ok inverted button">
+				<i class="download icon"></i>
+				<a href="#" download id='modal_image_href'>Скачать</a></b></a>
+		    </div>
+		    <div class="ui red basic cancel inverted button">
+				<i class="remove icon"></i>
+				Отмена
+		    </div>
+		  </div>
+		</div>
+</div>
+
+<script>
+	$('.ui.accordion').accordion();
+	$(".thumb").click(function(){
+		// $('#modal_image').attr('src', 'images/' + this.id + '.jpg');
+		$('#modal_image').attr('src', this.id);
+		$('#modal_shower').modal('show');
+		$('#modal_image_href').attr('href', this.id);
+	});
+</script>
+
+{% endblock content %}

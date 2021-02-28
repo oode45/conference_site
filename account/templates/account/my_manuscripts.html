@@ -1,0 +1,64 @@
+{% extends "base_account.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+<style type="text/css">
+</style>
+{% endblock extra_styles %}
+
+{% block title %}
+Мои доклады
+{% endblock title %}
+
+{% block content %}
+    <h1 class="ui centered header">Мои доклады</h1>
+        <h2>На расмотрении:</h2>   
+        <div class="ui ordered list"> 
+            {% for manuscript in reviewer %}
+                {% if manuscript.status_type == 'approval' %}
+                    <div class="item">
+                        {{manuscript}}
+                        &nbsp;{{manuscript.paper_name}}
+                        <a href="{{manuscript.paper_file.url}}" download><i class="file outline icon"></i></a>
+                        {% if manuscript.chief_review.url is not None %}
+                            <a href="{{manuscript.chief_review.url}}" download><i class="file pdf outline icon"></i></a>
+                        {% endif %}
+                        <a class="ui right floated mini green button" href="{% url 'accept' id=manuscript.pk %}">Принять</a>
+                        <a class="ui right floated mini red button "href="{% url 'reject' id=manuscript.pk %}">Отклонить</a>
+                        | Дата: {{manuscript.reviewer_accepted_toreview}}  
+                    </div>
+                    <hr>                
+                {% endif %}                   
+            {% endfor %}  
+        </div>       
+
+        <h2>Принято:</h2>
+        <div class="ui ordered bulleted list"> 
+            {% for manuscript in reviewer %}
+                {% if manuscript.status_type == 'accepted' %}            
+                    <div class="item">
+                        {{manuscript}}
+                        &nbsp;{{manuscript.paper_name}} 
+                        &nbsp;{{manuscript.paper_name}} 
+                        | Дата: {{manuscript.reviewer_accepted}}|
+                        Исходный файл <a href="{{manuscript.paper_file.url}}" download><i class="file outline icon"></i></a>
+                        Корректированный файл .doc <a href="{{manuscript.reviewer_corrected_manuscript.url}}" download><i class="file outline icon"></i></a>
+                        Корректированный файл .pdf <a href="{{manuscript.reviewer_corrected_manuscript_pdf.url}}" download><i class="file outline icon"></i></a>
+                    </div>              
+                {% endif %}                   
+            {% endfor %}
+        </div>  
+
+        <h2>Отклонено:</h2>
+        <div class="ui ordered bulleted list" name="list"> 
+            {% for manuscript in reviewer %}
+                {% if manuscript.status_type == 'rejected' %}            
+                    <div class="item">
+                        <!-- {{ forloop.counter }}. -->
+                        {{manuscript}}
+                        &nbsp;{{manuscript.paper_name}} 
+                        | Дата: {{manuscript.reviewer_rejected}}
+                    </div>              
+                {% endif %}                   
+            {% endfor %}
+        </div>  
+{% endblock content %}

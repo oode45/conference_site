@@ -1,0 +1,50 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+{% block title %}
+    Archive
+{% endblock title %}
+
+{% block content %}
+
+<!-- right content -->
+
+<h1 class="ui orange centered header">Архив</h1>
+
+
+{% for year, archives in arc_list %}
+<div class="ui basic segment">		
+	<h3 class="ui horizontal divider header">{{ year }}</h3>
+	
+	{% for archive in archives %}
+	
+	<div class="ui raised segment">
+		
+		<table class="ui very basic table">
+			<tbody>		
+			{% for volume in archive.archive_list.all %}	
+			<tr>				
+				<td class="ui center aligned">
+					<a href="{{ volume.proceedings_upload.url }}" style="color:orange" download><i class="orange big file pdf outline icon"></i>Скачать</a>
+				</td>
+
+				<td>
+					{{ archive.name }} Том {{ volume.volume }}
+					
+				</td>
+			</tr>		
+			{% endfor %}
+			</tbody>			
+		</table>
+	</div>
+
+	
+{% endfor %}
+</div>
+
+{% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends "base_account.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+<style type="text/css">
+</style>
+{% endblock extra_styles %}
+
+{% block title %}
+Отклонить доклад
+{% endblock title %}
+
+{% block content %}
+    <!-- <h1 class="ui centered header">Принять</h1> -->
+    <form class="ui error form" action="{% url 'reject' id %}" method="post" enctype="multipart/form-data">
+    <!-- <form method="post" action="{% url 'accept' id %}"> -->
+        {% csrf_token %}
+        {{form.comment.label}}
+        {{form.comment}}
+        <br>
+        <br>
+        <input class="ui blue button" type="submit" value="Сохранить и отправить уведомление">              
+    </form>
+{% endblock content %}

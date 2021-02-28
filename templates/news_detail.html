@@ -1,0 +1,43 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+{% load project_tags %}
+{% block title %}
+    {{news_item.title}}
+{% endblock title %}
+{% block content %}
+    <h2 class="ui centered orange header">
+        {{news_item.title}}
+    </h2>
+    <span>
+        {{ news_item.posting_date }}
+    </span>
+    <div class="ui segment">
+        <p>
+            {{ news_item.content | markdown}}
+        </p>
+        <p>
+            <div class="ui huge image">
+               {% if news_item.image1.url != null %}
+                <img src="{{ news_item.image1.url}}" alt="">
+                {% endif %}
+
+                <br>
+
+                {% if news_item.image2.url != null %}
+                <img src="{{ news_item.image2.url}}" alt="">
+                {% endif %}
+
+                <br>
+
+                {% if news_item.image3.url != null %}
+                <img src="{{ news_item.image3.url}}" alt="">
+                {% endif %}
+            </div>
+            
+        </p>
+    </div>
+{% endblock content %}

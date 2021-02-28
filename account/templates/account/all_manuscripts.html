@@ -1,0 +1,55 @@
+{% extends "base_account.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+
+{% block title %}
+    Список докладов
+{% endblock title %}
+
+{% block content %}
+
+{% if sections_and_participants|length != 0 %}
+	<h1 class="ui centered header">
+		Список докладов на рассмотрении
+	</h1>
+	<form class="ui error form" action="" method="post" enctype="multipart/form-data">	
+		{% csrf_token %}
+		{% for section, participants in sections_and_participants %}
+			<h3 class="ui centered header"><i>Секция "{{ section.name }}"</i></h3>
+			<div class="ui list">
+				{% for participant in participants %}
+					{% if participant.status_type == 'approval' and participant.reviewer == None %}
+						<div class="ui checkbox">
+							<input type="checkbox" name="selected_paper", value='{{participant.id}}'>
+							<label>	  
+								<em>{{ participant }} </em>
+								&emsp; {{ participant.paper_name }}
+								({{ participant.organization }})
+								{% if participant.chief_last_name %}
+										Научный руководитель:
+										<em>
+											{{ participant.chief_degree }},
+											{{ participant.chief_last_name }}
+											{{ participant.chief_first_name | slice:":1" }}.{% if participant.chief_middle_name %}{{ participant.chief_middle_name | slice:":1" }}.{% endif %}
+										</em>	
+								{% endif %}
+							</label>
+						</div>
+						<br>
+						<br>
+					{% endif %}	
+				{% endfor %}
+			</div>
+		{% endfor %}
+		<input class="ui blue button" type="submit" value="Сохранить отмеченное">
+	</form>
+{% else %}	
+	<h1 class="ui centered header">
+		Свободных докладов пока нет.
+	</h1>
+{% endif %}	
+
+{% endblock content %}

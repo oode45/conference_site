@@ -1,0 +1,36 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+{% block title %}
+    Captcha
+{% endblock title %}
+
+{% block content %}
+	<h3 class="ui orange header">Введите результат выражения, изображенного на картинке</h3>
+	<div class="ui raised compact segment">
+		<form class="ui form error" action="" method="post">
+		    {% csrf_token %}
+		    {% for hidden in form.hidden_fields %}
+				{{ hidden }}
+			{% endfor %}
+			<div class="required field">
+				{% for error in form.captcha.errors %}
+					<div class="ui error message">
+						{{ error }}
+					</div>
+				{% endfor %}	
+	<!-- 		
+				<label for="{{ form.captcha.id_for_label }}">
+					{{ form.captcha.label }}
+				</label>
+	 -->
+				{% render_field form.captcha placeholder='Введите результат сюда' %}
+			</div>
+		    <input class="ui blue button" type="submit" value="Отправить">
+		</form>
+	</div>
+{% endblock content %}

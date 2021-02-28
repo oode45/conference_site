@@ -1,0 +1,64 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+{% load project_tags %}
+{% block title %}
+    Оргкомитет
+{% endblock title %}
+
+{% block content %}
+			<!-- right content -->
+
+	<div class="thirteen wide column">
+		 	<div class="ui basic segment">
+  				<h1 class="ui orange centered header">
+  					Организационный комитет
+  				</h1>
+
+				<div class="ui items">
+					<div class="item">
+						<div class="ui tiny image">
+							<img src="{{ chairman_photo.url }}">
+						</div>
+						<div class="content">
+							<div class="ui header"> 	
+									Председатель:
+							</div>
+
+							<div class="description">
+								{{ chairman_info | markdown}}	  							
+							</div>
+						</div>
+					</div>
+					
+					<div class="ui hidden divider"></div>
+
+					<div class="item">
+						<div class="ui tiny image">
+							<img src="{{ academic_secretary_image.url }}">
+						</div>
+						<div class="content">
+							<div class="ui header"> 	
+									Заместитель председателя:
+							</div>
+
+							<div class="description">
+								{{ academic_secretary_info | markdown }}	
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<h3>Члены оргкомитета:</h3>
+
+  				<div class="ui bulleted list">
+					{{ committee_members | markdown}}			
+				</div>
+			</div>
+		</div>
+
+{% endblock content %}

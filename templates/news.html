@@ -1,0 +1,42 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+{% load project_tags %}
+{% block title %}
+    Главная страница
+{% endblock title %}
+{% block content %}
+    <h2 class="ui centered orange header">
+        Новости
+    </h2>
+
+    <div class="ui divided items">
+        {% for news_item in news %}
+
+            <div class="item">
+                <div class="image">
+                    <img class="ui small image" src="{{ news_item.thumbnail_image.url }}">
+                </div>
+                <div class="content">
+                    <div class="header">{{news_item.title}}</div>
+                    <div class="meta">
+                        <span>
+                            {{ news_item.posting_date }}
+                        </span>
+                    </div>
+                    <div class="description">
+                        <p>
+                            {{ news_item.content | markdown | truncatewords:20}}
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <a href="{% url 'news_detail' id=news_item.pk %}" target="blank" class="ui button">Подробнее...</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

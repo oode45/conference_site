@@ -1,0 +1,49 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+{% load project_tags %}
+{% block title %}
+    FAQ
+{% endblock title %}
+
+{% block content %}
+
+<h1 class="ui centered orange header">Часто задаваемые вопросы</h1>
+
+
+
+<div class="ui styled fluid accordion">
+{% for faq_item in faq %}
+  <div class="title">
+    <i class="dropdown icon"></i>
+    {{ faq_item.question }}
+  </div>
+  <div class="content">
+    <p class="transition hidden">{{ faq_item.answer | markdown }}</p>
+    {% if faq_item.helper_file.url != null %}
+			<a href="" target="blank"><i class="big file outline icon"></i><b>							
+			<a href="{{ faq_item.helper_file.url }}" download>Файл Приложение</a></b></a>
+			<br><br>
+			{% endif %}
+
+			{% if faq_item.helper_image.url != null %}
+			<a href="" target="blank"><i class="big bus icon"></i><b>							
+			<a href="{{ faq_item.helper_image.url }}" download>Файл схемы проезда</a></b></a>
+			{% endif %}	
+  </div>
+
+{% endfor %}
+
+</div>
+
+<script type="text/javascript">
+	$('.ui.accordion').accordion();
+</script>
+
+{% endblock %}
+
+
+

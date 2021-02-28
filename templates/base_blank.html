@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<!doctype html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="Конференция молодых ученых 'Современные техника и технологии в научных исследованиях'">
+
+    <meta property="og:url" content="mmk.gdirc.kg"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Современные техника и технологии в научных исследованиях"/>
+    <meta property="og:description" content="Конференция молодых ученых 'Современные техника и технологии в научных исследованиях'"/>
+    <meta property="og:image" content="mmk.gdirc.kg/static/favicon/favicon3.png" />
+
+    <meta name="yandex-verification" content="36a9fd57b8d57d22">
+
+    {% load staticfiles %}
+        <!-- <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.png' %}"/> -->
+        <link rel="icon" type="image/png" href="{% static 'favicon/favicon3.png' %}"/>
+    {% block styles %}
+        <link rel="stylesheet" href="{% static 'semantic/semantic.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app.css' %}">
+        <link rel="stylesheet" href="{% static 'plugin/bxslider-4-master/src/css/jquery.bxslider.css' %}">
+    {% endblock styles %}
+    {% block extra_styles %}
+    {% endblock extra_styles %}
+    {% block scripts %}
+        <script src="{% static 'jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'semantic/semantic.min.js' %}"></script>
+        <script src="{% static 'plugin/bxslider-4-master/src/js/jquery.bxslider.js' %}"></script>
+        <script src="{% static 'js/app.js' %}"></script>
+    {% endblock scripts %}
+    <title>
+        {% block title %}{% endblock title %}
+    </title>
+</head>
+<body>
+    <div class="ui container">
+    {% block content %}{% endblock content %}
+    </div> <!-- container -->
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends "base_blank.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+
+{% block title %}
+    Программа конференции
+{% endblock title %}
+
+{% block content %}
+	<h1 class="ui centered header">
+		Программа конференции
+	</h1>
+	
+	{% for section, participants in sections_and_participants %}
+		<h3 class="ui centered header"><i>Секция "{{ section.name }}"</i></h3>
+
+		<div class="ui list">
+			{% for participant in participants %}
+			    {% if participant.status_type == 'accepted' %}
+			    	<li>
+			    		{{ forloop.counter }}.
+			    		<em>{{ participant.author_list }}</em>
+			    		{{ participant.paper_name }}
+			    		({{ participant.organization }}).
+			    		{% if participant.chief_last_name %}
+			    			Научный руководитель:
+			    			<em>
+			    				{{ participant.chief_degree }},
+			    				{{ participant.chief_last_name }}
+			    				{{ participant.chief_first_name | slice:":1" }}.{% if participant.chief_middle_name %}{{ participant.chief_middle_name | slice:":1" }}.{% endif %}
+			    			</em>
+			    		{% endif %}
+			    {% endif %}
+			 {% endfor %}
+		 </div>
+	{% endfor %}
+{% endblock content %}

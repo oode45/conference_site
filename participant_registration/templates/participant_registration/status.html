@@ -1,0 +1,86 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+
+{% block title %}
+    Статус заявок
+{% endblock title %}
+
+{% block content %}
+	<!-- right content -->
+	{% if messages %}
+		{% for message in messages %}
+			<div class="ui info message">
+				<i class="close icon"></i>
+				<div class="header">
+					Успешная регистрация
+				</div>
+				<p>
+					{{ message }}
+				</p>
+			</div>
+		{% endfor %}
+	{% endif %}
+	<div class="thirteen wide column">
+		<h1 class="ui orange centered header">
+			Список участников
+		</h1>
+		<h3 class="ui centered header">
+			<p>Международной конференции молодых ученых и студентов</p>
+			"Современные техника и технологии в научных исследованиях"
+		</h3>
+		
+		{% for section, participants in sections_and_participants %}
+		<h3 class="ui orange centered header"><i>Секция "{{ section.name }}"</i></h3>
+			<table class="ui celled table">
+				<thead>
+				<tr>
+					<th class="one wide">N</th>
+				  	<th class="three wide">Докладчик</th>
+				  	<th>Название доклада</th>
+				  	<th class="three wide">Статус</th>
+				</tr>
+				</thead>
+				<tbody>
+					{% for participant in participants %}
+						{% if participant.status_type == 'rejected' %}
+					    	<tr class="negative">
+					    {% endif %}
+					    {% if participant.status_type == 'accepted' %}
+					    	<tr class="positive">
+					    {% endif %}
+					    {% if participant.status_type == 'approval' %}
+					    	<tr>
+					    {% endif %}
+					    	<td>
+					    		{{ forloop.counter }}
+					    	</td>
+					      	<td>
+					      		{{ participant }}
+					      	</td>
+					      	<td>
+					      		{{ participant.paper_name }}
+					      	</td>
+					      	<td>
+					      		{{ participant.get_status_type_display }}
+					      	</td>
+					    </tr>
+					 {% endfor %}
+				</tbody>
+			</table>
+		{% endfor %}
+	</div>
+{% endblock content %}
+{% block appjs %}
+	$('.message .close')
+	  .on('click', function() {
+	    $(this)
+	      .closest('.message')
+	      .transition('fade')
+	    ;
+	  })
+	;
+{% endblock appjs %}

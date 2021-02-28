@@ -1,0 +1,425 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block extra_styles %}
+    <style type="text/css">
+    </style>
+{% endblock extra_styles %}
+{% block title %}
+    Регистрация
+{% endblock title %}
+
+{% block content %}
+	<h1 class="ui orange centered header">Регистрация</h1>
+
+	<div class="ui list">
+						<div class="item">
+							<i class="right triangle icon"></i>
+							<div class="content">
+								<h4 class="ui red header">Перед заполнением формы необходимо подготовить файл Вашего доклада в формате *.doc или
+								*.docx, оформленный в соответствии с требованиями к оформлению докладов.</h4>
+							</div>
+						</div>
+
+						<div class="item">
+							<i class="right triangle icon"></i>
+							<div class="content">
+								<h4 class="ui red header">Если вы в настоящий момент учитесь в вузе на направлениях бакалавриата, магистратуры, специалитета или аспирантуры, необходимо приложить файл отзыва научного руководителя в формате *.pdf.</h4>
+							</div>
+						</div>
+
+						<div class="item">
+							<i class="right triangle icon"></i>
+							<div class="content">
+								<h4 class="ui red header">Общий размер загружаемых файлов не должен превышать 15 Мб.</h4>
+							</div>
+						</div>
+
+						<div class="item">
+							<i class="right triangle icon"></i>
+							<div class="content">
+								<h4 class="ui red header">По всем возникающим вопросам и детального ознакомления есть пункт <a href="{% url 'faq' %}">"Как зарегистрироваться?"</a> в разделе FAQ.</h4>
+							</div>
+						</div>
+									
+				</div>
+
+	<form class="ui error form" action="" method="post" enctype="multipart/form-data">
+	    {% csrf_token %}
+	    {% for hidden in form.hidden_fields %}
+			{{ hidden }}
+		{% endfor %}
+		<div class="ui label">
+			<span style="color:red;"> * </span> Обязательное поле
+		</div>
+		<div class="ui grey raised segment" style="background-color:whitesmoke;">
+			<h3 class="ui orange centered header">Информация об участнике </h3>
+			<div class="ui hidden divider"></div>
+			<div class="three fields">
+				<div class="required field">
+					<label for="{{ form.last_name.id_for_label }}">						
+						{% for error in form.last_name.errors %}
+							<span>
+								<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="last_name"></i>						
+							</span>	
+						{% endfor %}
+						{{ form.last_name.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Фамилия указывается на русском языке с заглавной буквы. Например: Иванов" id="status_last_name"></i>
+					</label>
+					{{ form.last_name  | attr:"placeholder:Иванов" }}
+				</div>
+				<div class="required field">
+					<label for="{{ form.first_name.id_for_label }}">						
+						{% for error in form.first_name.errors %}
+							<span>
+								<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="first_name"></i>						
+							</span>	
+						{% endfor %}
+						{{ form.first_name.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Имя указывается на русском языке с заглавной буквы. Например: Иван" id="status_first_name"></i>
+					</label>
+					{{ form.first_name | attr:"placeholder:Иван" }}
+				</div>
+				<div class="field">
+					<label for="{{ form.middle_name.id_for_label }}">						
+						{% for error in form.middle_name.errors %}
+							<span>
+								<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="middle_name"></i>						
+							</span>	
+						{% endfor %}
+						{{ form.middle_name.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Отчество указывается на русском языке с заглавной буквы. Например: Иванович" id="status_middle_name"></i>
+					</label>
+					{{ form.middle_name  | attr:"placeholder:Иванович" }}
+				</div>
+			</div>
+			
+			<div class="four fields">
+				<div class="four wide required field">
+					{{ form.current_status.errors }}
+					<label for="{{ form.current_status.id_for_label }}">
+						{{ form.current_status.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Если вы учитесь на одном из указанных направлений, выберите соответствующее. Если вы уже не учитесь, выберите 'Другое'" id="status_current_status"></i>
+					</label>
+					{{ form.current_status }}
+					<!-- <select class="ui fluid dropdown" id="qualification"> -->
+				</div>
+				<div class="three wide required field">
+					<label for="{{ form.age.id_for_label }}">						
+						{% for error in form.age.errors %}
+							<span>
+								<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="age"></i>						
+							</span>	
+						{% endfor %}
+						{{ form.age.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Указывается количество полных лет. Например: 30" id="status_age"></i>
+					</label>
+					{{ form.age | attr:"placeholder:20" }}
+				</div>
+				<div class="four wide required field">
+					<label for="{{ form.phone.id_for_label }}">						
+						{% for error in form.phone.errors %}
+						<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="phone_participant"></i>						
+						</span>	
+						{% endfor %}
+					{{ form.phone.label }}
+					<i class="green question circle icon" data-variation="inverted" data-content="Телефон может содержать цифры, пробелы, скобки, знаки тире и плюса. Например: +7 (920) 207-82-37" id="status_phone"></i>
+					</label>
+					{{ form.phone | attr:"placeholder:+996 xxx xxxxxx" }}
+				</div>
+
+				<div class="five wide required field">
+					<label for="{{ form.email.id_for_label }}">
+						{% for error in form.email.errors %}
+						<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="email_participant"></i>						
+						</span>	
+						{% endfor %}
+
+						{{ form.email.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Например: example@mail.ru" id="status_email"></i>
+
+						
+					</label>
+					{{ form.email }}
+				</div>
+			</div>
+
+			<div class="two fields">
+				<div class="twelve wide required field">
+					{{ form.organization.errors }}
+					<label for="{{ form.organization.id_for_label }}">
+						{{ form.organization.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Указывается полностью Например: Кыргызско-Российский Славянский университет или ОсОО  Авангард" id="status_organization"></i>
+					</label>
+					{{ form.organization  | attr:"placeholder:Кыргызско-Российский Славянский университет" }}
+				</div>
+				<div class="four wide required field">
+					{{ form.country.errors }}
+					<label for="{{ form.country.id_for_label }}">
+						{{ form.country.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Страна из которой вы прибыли" id="status_country"></i>
+					</label>
+					{{ form.country }}
+				</div>
+			</div>
+			<div class="two fields">
+				<div class="twelve wide required field">
+					{{ form.section.errors }}
+					<label for="{{ form.section.id_for_label }}">
+						{{ form.section.label }}
+					</label>
+					{{ form.section }}
+				</div>
+				<div class="four wide required field">
+					{{ form.participation_type.errors }}
+					<label for="{{ form.participation_type.id_for_label }}">
+						{{ form.participation_type.label }}
+					</label>
+					{{ form.participation_type }}
+				</div>
+			</div>
+
+			<div class="required field">
+				<label for="{{ form.author_list.id_for_label }}">
+					{% for error in form.author_list.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="author_list"></i>						
+					</span>	
+					{% endfor %}
+
+					{{ form.author_list.label }}
+					<i class="green question circle icon" data-variation="inverted" data-content="Поле должно содержать полный список авторов. Например Иванов И.И., Петров П.П., Сидоров С.С." id="status_author_list"></i>
+					
+				</label> 
+				{{ form.author_list  | attr:"placeholder:Иванов И.И., Петров Е.Г.,  Сидоров И.П." }}
+			</div>
+
+
+
+			<div class="required field">
+				<label for="{{ form.paper_name.id_for_label }}">
+					{% for error in form.paper_name.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="paper_name"></i>						
+					</span>	
+					{% endfor %}
+					{{ form.paper_name.label }}
+					<i class="green question circle icon" data-variation="inverted" data-content="Указывается на русском языке с заглавной буквы. Например: Кластерный анализ акустоэмиссионных сигналов образцов горных пород" id="status_paper_name"></i>
+				</label>
+				{{ form.paper_name  | attr:"placeholder:Кластерный анализ акустоэмиссионных сигналов образцов горных пород" }}
+			</div>
+
+			<div class="required field">
+				<label for="{{ form.paper_file.id_for_label }}">
+					{% for error in form.paper_file.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="paper_file"></i>						
+					</span>	
+					{% endfor %}
+
+					{{ form.paper_file.label }}
+					<i class="green question circle icon" data-variation="inverted" data-content="Файл должен быть в формате .doc или .docx. Например: Доклад.doc или Доклад.docx" id="status_paper_file"></i>
+					
+				</label>
+				{{ form.paper_file }}
+			</div>
+		</div>
+
+		<div class="ui grey raised segment" style="background-color:whitesmoke;" id='science_chief'>
+			<h3 class="ui orange centered header">Информация о научном руководителе</h3>
+			<div class="ui hidden divider"></div>
+			<div class="three fields">
+				<div class="required field">
+					<label for="{{ form.chief_last_name.id_for_label }}">
+					{% for error in form.chief_last_name.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="chief_last_name"></i>						
+					</span>	
+					{% endfor %}
+						{{ form.chief_last_name.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Фамилия указывается на русском языке с заглавной буквы. Например: Иванов" id="status_chief_last_name"></i>
+					</label>
+					{{ form.chief_last_name  | attr:"placeholder:Петров" }}
+				</div>
+				<div class="required field">
+					<label for="{{ form.chief_first_name.id_for_label }}">
+					{% for error in form.chief_first_name.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="chief_first_name"></i>						
+					</span>	
+					{% endfor %}
+						{{ form.chief_first_name.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Имя указывается на русском языке с заглавной буквы. Например: Иван" id="status_chief_first_name"></i>
+					</label>
+					{{ form.chief_first_name  | attr:"placeholder:Петр" }}
+				</div>
+				<div class="field">
+					<label for="{{ form.chief_middle_name.id_for_label }}">
+					{% for error in form.chief_middle_name.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="chief_middle_name"></i>						
+					</span>	
+					{% endfor %}
+						{{ form.chief_middle_name.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Отчество указывается на русском языке с заглавной буквы. Например: Иванович" id="status_chief_middle_name"></i>
+					</label>
+					{{ form.chief_middle_name  | attr:"placeholder:Петрович" }}
+				</div>
+			</div>
+
+			<div class="two fields">
+				<div class="required field">
+					<label for="{{ form.chief_phone.id_for_label }}">
+					{% for error in form.chief_phone.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="chief_middle_name"></i>						
+					</span>	
+					{% endfor %}
+						{{ form.chief_phone.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Например: +7 (920) 207-82-37" id="status_chief_phone"></i>
+					</label>
+					{{ form.chief_phone  | attr:"placeholder:+996 xxx xxxxxx" }}
+				</div>
+				<div class="required field">
+					<label for="{{ form.chief_email.id_for_label }}">
+					{% for error in form.chief_email.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="chief_middle_name"></i>						
+					</span>	
+					{% endfor %}
+						{{ form.chief_email.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Например: example@mail.ru" id="status_chief_email"></i>
+					</label>
+					{{ form.chief_email }}
+				</div>
+			</div>
+
+			<div class="two fields">
+				<div class="required field">
+					<label for="{{ form.chief_organization.id_for_label }}">
+						{% for error in form.chief_organization.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="chief_middle_name"></i>						
+					</span>	
+					{% endfor %}
+						{{ form.chief_organization.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Указывается полностью Например: Кыргызско-российский славянский университет им. Б.Н. Ельцина или ОсОО  Авангард" id="status_chief_organization"></i>
+					</label>
+					{{ form.chief_organization  | attr:"placeholder:Кыргызско-Российский Славянский университет" }}
+				</div>
+				
+				<div class="six wide required field">
+					<label for="{{ form.chief_position.id_for_label }}">
+						{% for error in form.chief_position.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="chief_position"></i>						
+					</span>	
+					{% endfor %}
+						{{ form.chief_position.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Указывается должность Например: заведующий кафедрой или Директор" id="status_chief_position"></i>
+					</label>
+					{{ form.chief_position | attr:"placeholder:заведующий кафедрой Механики"}}
+				</div>
+
+				<div class="six wide required field">
+					<label for="{{ form.chief_degree.id_for_label }}">
+						{% for error in form.chief_degree.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="chief_degree"></i>						
+					</span>	
+					{% endfor %}
+						{{ form.chief_degree.label }}
+						<i class="green question circle icon" data-variation="inverted" data-content="Указываются звание и/или степень. Например: к.ф-м.н, доцент" id="status_chief_degree"></i>
+					</label>
+					{{ form.chief_degree  | attr:"placeholder:к.ф.-м.н., доцент"}}
+				</div>
+
+
+			</div>
+			<div class="required field">
+				<label for="{{ form.chief_review.id_for_label }}">
+					{% for error in form.chief_review.errors %}
+					<span>
+						<i class="red exclamation triangle icon" data-variation="inverted" data-content="{{ error }}" id="chief_review"></i>						
+					</span>	
+					{% endfor %}
+					{{ form.chief_review.label }}
+					<i class="green question circle icon" data-variation="inverted" data-content="Файл должен быть в формате .pdf. Например: Отзыв.pdf" id="status_chief_review"></i>
+				</label>
+				{{ form.chief_review }}
+			</div>
+		</div>
+	    <input class="ui large blue button" type="submit" value="Отправить форму">
+	</form>
+	
+{% endblock content %}
+{% block appjs %}
+	$( document ).ready(function() {
+	// проверка значений  
+	    if ($('#id_current_status').val() == 'Other'){
+			$('#science_chief').hide();
+		}
+		else {
+			$('#science_chief').show();
+		};
+	});
+
+	//
+	$('#id_current_status').on('change', function() {
+		if (this.value == 'Other'){
+			$('#science_chief').hide();
+		}
+		else {
+			$('#science_chief').show();
+		};
+	});
+
+	$('#status_last_name').popup();
+	$('#status_first_name').popup();
+	$('#status_middle_name').popup();
+	$('#status_current_status').popup();
+	$('#status_age').popup();
+	$('#status_phone').popup();
+	$('#phone_participant').popup();
+	$('#status_email').popup();
+	$('#email_participant').popup();
+	$('#status_organization').popup();
+	$('#status_country').popup();
+	$('#status_paper_name').popup();
+	$('#status_paper_file').popup();
+	$('#status_author_list').popup();
+
+
+	$('#status_chief_last_name').popup();
+	$('#status_chief_first_name').popup();
+	$('#status_chief_middle_name').popup();
+	$('#status_chief_phone').popup();
+	$('#status_chief_email').popup();
+	$('#status_chief_organization').popup();
+	$('#status_chief_position').popup();
+	$('#status_chief_review').popup();
+	$('#status_chief_degree').popup();
+
+
+	$('#file1').popup();
+	$('#file2').popup();
+	$('#middle_name').popup();
+	$('#first_name').popup();
+	$('#last_name').popup();
+	$('#age').popup();
+	$('#phone').popup();
+	$('#author_list').popup();
+	$('#paper_file').popup();
+	$('#paper_name').popup();
+	$('#chief_last_name').popup();
+	$('#chief_first_name').popup();
+	$('#chief_middle_name').popup();
+	$('#chief_position').popup();
+	$('#chief_review').popup();
+	$('#chief_degree').popup();
+	
+
+
+{% endblock appjs %}
